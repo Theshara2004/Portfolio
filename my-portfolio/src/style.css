@@ -1,0 +1,1031 @@
+/* Base Reset and Variables */
+:root {
+    --bg-color: #050505; /* Deeper black */
+    --surface-color: rgba(30, 40, 50, 0.3); /* Transparent for glass effect */
+    --primary-color: #00ffff; /* True neon cyan */
+    --primary-glow: rgba(0, 255, 255, 0.5);
+    --secondary-color: #b366ff; /* Neon purple for accents */
+    --text-main: #c5c6c7;
+    --text-light: #ffffff;
+    --font-main: 'Poppins', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Smooth scrolling for nav links */
+}
+
+body {
+    /* Atmospheric dark gradient background */
+    background: radial-gradient(circle at top left, #1a0b2e 0%, #050505 50%, #001a1a 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    font-family: var(--font-main);
+    line-height: 1.6;
+}
+
+/* Typography */
+h1, h2, h3 {
+    color: var(--text-light);
+    font-weight: 800;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: rgba(5, 5, 5, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-light);
+}
+
+.logo span {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-glow);
+}
+/* --- Nav Logo Scroll Animation --- */
+
+#nav-logo {
+    opacity: 0; /* Hidden by default */
+    transform: translateY(-15px); /* Pushed up slightly */
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none; /* Prevents users from clicking the invisible link */
+}
+
+/* This class gets added by JavaScript when you scroll */
+#nav-logo.scrolled-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto; /* Makes it clickable again */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 5%;
+    background: radial-gradient(circle at center, #1f2833 0%, #0b0c10 100%);
+}
+
+.greeting {
+    font-family: var(--font-mono);
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.hero .subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2.5rem auto;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.primary-btn {
+    background-color: rgba(0, 255, 255, 0.05);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-glow), inset 0 0 5px var(--primary-glow);
+    backdrop-filter: blur(5px);
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-color);
+    color: #000;
+    box-shadow: 0 0 25px var(--primary-color), inset 0 0 15px var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* Secondary Button with Purple Accent */
+.secondary-btn {
+    background-color: transparent;
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0 0 5px rgba(179, 102, 255, 0.3);
+}
+
+.secondary-btn:hover {
+    background-color: var(--secondary-color);
+    color: #fff;
+    box-shadow: 0 0 15px var(--secondary-color);
+}
+
+/* Projects Section (CSS Grid) */
+.portfolio-section, .about-section, footer {
+    padding: 6rem 5%;
+    background-color: transparent; 
+}
+
+/* Inventory UI Layout */
+.inventory-ui {
+    display: flex;
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: rgba(5, 5, 5, 0.4);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+/* LEFT SIDE: The List */
+.inventory-list {
+    flex: 0 0 30%; 
+    background: rgba(255, 255, 255, 0.02);
+    /* Changed from border-left to border-right */
+    border-right: 1px solid rgba(0, 255, 255, 0.1); 
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-header {
+    color: var(--secondary-color);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    padding: 0 2rem 1rem 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.inventory-item {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    text-align: left;
+    padding: 1rem 2rem;
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Changed to right border */
+    border-right: 3px solid transparent; 
+}
+
+/* Hover and Active States */
+.inventory-item:hover {
+    background: rgba(0, 255, 255, 0.05);
+    color: var(--text-light);
+}
+
+.inventory-item.active-item {
+    /* Fades from right to left now */
+    background: linear-gradient(270deg, rgba(0, 255, 255, 0.1) 0%, transparent 100%);
+    /* Glowing border moved to the right */
+    border-right: 3px solid var(--primary-color);
+    color: var(--text-light);
+    /* Glow shadow moved to the right */
+    box-shadow: inset -10px 0 20px -10px var(--primary-glow);
+}
+
+.inventory-item.active-item .item-icon, .inventory-item:hover .item-icon {
+    opacity: 1;
+}
+
+/* LEFT SIDE: The Display */
+.inventory-display {
+    flex: 1; 
+    position: relative;
+    /* FIX 1: Changed min-height to a strict, locked height */
+    height: 500px; 
+    /* FIX 2: Tells the box to add a scrollbar if the content overflows */
+    overflow-y: auto; 
+    
+    /* Optional: hides the harsh bottom border if you scroll past it */
+    border-bottom: 1px solid transparent;
+}
+/* --- Datapad Custom Scrollbar --- */
+.inventory-display::-webkit-scrollbar {
+    width: 8px; /* Thin, sleek vertical scrollbar */
+}
+
+.inventory-display::-webkit-scrollbar-track {
+    background: rgba(0, 255, 255, 0.02); /* Very faint track */
+    border-left: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.inventory-display::-webkit-scrollbar-thumb {
+    background: var(--primary-color); /* Neon cyan thumb */
+    border-radius: 4px;
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.inventory-display::-webkit-scrollbar-thumb:hover {
+    background: var(--text-light); /* Turns white when hovered */
+}
+
+.project-details {
+    display: none; /* Hides all projects by default */
+    animation: HUDfade 0.4s ease-out forwards;
+}
+
+/* Only the active project is shown */
+.project-details.active-project {
+    display: block; 
+}
+
+.display-image {
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.display-content {
+    padding: 2rem;
+}
+/* Adds space between project buttons */
+.display-content .btn {
+    margin-right: 1rem; /* Space to the right of each button */
+    margin-bottom: 0.5rem; /* Space below if they wrap on mobile */
+    display: inline-block; /* Ensures margin works correctly */
+}
+
+/* Removes margin from the very last button so it stays aligned */
+.display-content .btn:last-child {
+    margin-right: 0;
+}
+
+.neon-text {
+    font-size: 2rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px var(--primary-glow);
+}
+/* YouTube Video Container */
+.display-video {
+    width: 100%;
+    height: 300px; /* This keeps it the exact same height as your old images */
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    background-color: #000; /* Keeps the background black while the video loads */
+}
+
+/* Forces the YouTube iframe to stretch perfectly inside your container */
+.display-video iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block; /* Removes weird spacing issues under iframes */
+}
+/* --- Additional Project Details --- */
+
+/* Small headers for the new sections */
+.sub-header {
+    color: var(--text-light);
+    font-family: var(--font-mono); /* Using a monospace/terminal font if you have one */
+    font-size: 1rem;
+    margin: 1.5rem 0 0.75rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px dashed rgba(0, 255, 255, 0.2);
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+/* Sci-Fi Bulleted List */
+.sci-fi-list {
+    list-style: none; /* Removes standard boring bullets */
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+}
+
+.sci-fi-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Custom terminal arrows instead of bullets */
+.sci-fi-list li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-family: var(--font-mono);
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--primary-glow);
+}
+
+/* Code Screenshot Styling */
+.code-showcase {
+    margin-bottom: 2rem;
+}
+
+.code-img {
+    width: 100%; /* Makes the image fit perfectly in the container */
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    background: #000; /* Dark background just in case your screenshot has transparency */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    display: block;
+}
+
+/* Slight zoom and glow when hovering over the code image */
+.code-img:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.02);
+    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+}
+/* --- BlueprintUE Embed Styling --- */
+
+.blueprint-showcase {
+    margin: 2rem 0;
+}
+
+.blueprint-container {
+    width: 100%;
+    /* This height makes the graph actually readable */
+    height: 600px; 
+    background: #000;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.blueprint-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Add a little "Data Loading" look to the container */
+.blueprint-container::before {
+    content: "LOADING BLUEPRINT NODES...";
+    position: absolute;
+    color: var(--primary-color);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 10px;
+    z-index: -1; /* Sits behind the iframe */
+}
+/* Container for the gallery and arrows */
+.gallery-wrapper {
+    position: relative;
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+/* The horizontal scrolling strip */
+.image-gallery {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0.5rem 0;
+    
+    /* Hide scrollbars */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+}
+
+.image-gallery::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+/* Individual Images */
+.image-gallery img {
+    flex: 0 0 auto;
+    width: 280px; /* Adjust size as needed */
+    height: 180px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    scroll-snap-align: start;
+    transition: border-color 0.3s;
+}
+
+.image-gallery img:hover {
+    border-color: var(--primary-color);
+}
+
+/* Navigation Arrows */
+.gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.gallery-arrow:hover {
+    background: var(--primary-color);
+    color: #000;
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.gallery-arrow.left { left: 10px; }
+.gallery-arrow.right { right: 10px; }
+
+/* Fade animation to make it feel like a screen turning on */
+@keyframes HUDfade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Responsiveness: Stacks the list on top of the display on small screens */
+@media (max-width: 768px) {
+    .inventory-ui {
+        flex-direction: column; 
+    }
+    .inventory-list {
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    }
+}
+
+.game-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    backdrop-filter: blur(10px); /* The frosted glass effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.3); /* The shine on the top edge */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color); /* Edge lights up on hover */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 15px var(--primary-glow);
+}
+
+.card-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.card-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-content p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    min-height: 50px;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tech-stack span {
+    background-color: var(--bg-color);
+    color: var(--secondary-color);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+}
+
+/* About Section */
+.about-section {
+    padding: 6rem 5%;
+    background-color: var(--surface-color);
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.skills {
+    margin-top: 3rem;
+    text-align: left;
+    background-color: var(--bg-color);
+    padding: 2rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.skills ul {
+    list-style-type: none;
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.skills ul li::before {
+    content: "▹";
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+}
+
+/* Footer */
+footer {
+    padding: 6rem 5% 2rem 5%;
+    text-align: center;
+    background-color: var(--bg-color);
+}
+
+footer h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+footer p {
+    margin-bottom: 2rem;
+}
+
+.socials {
+    margin: 3rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.socials a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    transition: color 0.3s ease;
+}
+
+.socials a:hover {
+    color: var(--primary-color);
+}
+
+.copyright {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 0;
+}
+/* Horizontal Timeline Container */
+.timeline-section {
+    margin-top: 6rem;
+    width: 100%;
+}
+
+.timeline-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 4rem;
+    color: var(--text-light);
+    letter-spacing: 1px;
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* The Glowing Horizontal Line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 9px; /* Aligns exactly with the center of the dots */
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-glow);
+    z-index: 0;
+}
+
+/* Individual Milestone */
+.timeline-item {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+/* The Glowing Nodes/Dots */
+.timeline-dot {
+    width: 20px;
+    height: 20px;
+    background-color: var(--bg-color);
+    border: 3px solid var(--primary-color);
+    border-radius: 50%;
+    margin: 0 auto 2rem auto;
+    box-shadow: 0 0 15px var(--primary-glow);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+    background-color: var(--primary-color);
+    transform: scale(1.4);
+    box-shadow: 0 0 25px var(--primary-color);
+}
+
+/* Glassmorphism Content Cards */
+.timeline-content {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.timeline-item:hover .timeline-content {
+    transform: translateY(-5px);
+    border-color: var(--secondary-color);
+}
+
+/* Text Styling */
+.timeline-date {
+    display: block;
+    font-family: var(--font-mono);
+    color: var(--secondary-color);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 5px rgba(179, 102, 255, 0.3);
+}
+
+.timeline-content h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+    color: var(--text-light);
+}
+
+.timeline-content p {
+    font-size: 0.9rem;
+    margin: 0;
+    color: #a0a0a0;
+}
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* In a pure HTML/CSS build, mobile menus are tricky without JS or hacky checkboxes. Keeping it simple by hiding links on very small screens, or you could change flex-direction. */
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    .timeline {
+        flex-direction: column;
+        gap: 3rem;
+        padding-left: 1rem;
+    }
+    
+    /* Changes horizontal line to vertical */
+    .timeline::before {
+        top: 0;
+        bottom: 0;
+        left: 20px; 
+        width: 2px;
+        height: 100%;
+        right: auto;
+    }
+
+    .timeline-item {
+        text-align: left;
+        display: flex;
+        align-items: flex-start;
+        gap: 2rem;
+        padding: 0;
+    }
+
+    .timeline-dot {
+        margin: 0;
+        flex-shrink: 0;
+    }
+}
+/* --- Global Custom Scrollbar --- */
+
+/* 1. The width of the scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* 2. The background track (the rail) */
+::-webkit-scrollbar-track {
+    background: #050505; /* Matches your dark theme */
+    border-left: 1px solid rgba(0, 255, 255, 0.1); /* Subtle neon divider */
+}
+
+/* 3. The draggable handle (the thumb) */
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #00ffff, #008888);
+    border-radius: 10px;
+    border: 3px solid #050505; /* This creates a 'padding' effect around the thumb */
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* 4. Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #ffffff; /* Glows white when you grab it */
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+}
+
+/* Firefox Support */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #00ffff #050505;
+}
+
+
+.skill-tree-container {
+  width: 100%;
+  height: 650px;
+  background: #020202;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.tree-wrapper {
+  position: relative;
+  width: 1000px;
+  height: 600px;
+}
+
+.tree-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.branch {
+  fill: none !important;
+  stroke: rgba(0, 255, 255, 0.1);
+  stroke-width: 2;
+  /* 'round' makes the transition from straight-to-diagonal feel smooth */
+  stroke-linejoin: round; 
+  stroke-linecap: round;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Lines */
+.branch-group path {
+  stroke: rgba(0, 255, 255, 0.1);
+  stroke-width: 2;
+  transition: 0.4s;
+  fill: none;
+}
+
+.branch-group.active path {
+  stroke: #00ffff;
+  filter: drop-shadow(0 0 5px #00ffff);
+}
+
+.sub-branch.active path {
+  stroke: #00ffff;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.8));
+}
+/* Branch Styling */
+ .spine {
+  fill: none !important; /* Forces no triangles */
+  stroke: rgba(0, 255, 255, 0.1);
+  stroke-width: 2;
+  transition: all 0.4s ease;
+}
+
+.sub-branch.active .branch, 
+.sub-branch.active .spine {
+  stroke: #00ffff;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 5px #00ffff);
+}
+
+/* Hub Styling */
+.skill-core {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.core-ball {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #00ffff;
+  background: #000;
+  color: #00ffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 0.75rem;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  transition: 0.3s;
+}
+/* Base styling for balls */
+.hub-ball {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid #00ffff;
+  background: black;
+  color: #00ffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  z-index: 10;
+  pointer-events: none; /* Let the SVG handle hovers */
+}
+
+/* Node layers */
+.node-layer {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.node-layer.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Node Styling */
+.node {
+  position: absolute;
+  width: 140px;
+  background: rgba(0, 20, 20, 0.9);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: white;
+  padding: 8px;
+  font-family: monospace;
+  font-size: 0.8rem;
+  text-align: center;
+  opacity: 0;
+  transition: 0.4s ease;
+  background: linear-gradient(90deg, rgba(0, 20, 20, 0.9) 0%, rgba(0, 5, 5, 0.9) 100%);
+  border: 1px solid rgba(0, 255, 255, 0.4);
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
+}
+.interactive-group {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  /* Massive width ensures the mouse is ALWAYS inside the box while moving to logos */
+  width: 300px; 
+  height: 500px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: rgba(255, 0, 0, 0.1); */ /* Uncomment this to see the "Bridge" area while debugging */
+}
+
+/* Position the "CODE" ball exactly in the center of its group */
+.interactive-group .core-ball {
+  position: relative;
+  z-index: 15;
+}
+
+.logo-circle {
+  width: 50px;
+  height: 50px;
+  background: black;
+  border: 2px solid #00ffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+.logo-circle img { width: 30px; height: 30px; object-fit: contain; }
+
+.node-container {
+  position: absolute;
+  transform: translate(-50%, -50%); /* Centers logo on the line end */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* Visibility Trigger */
+.interactive-group:hover .node-container,
+.node-container.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Labels */
+.node-label {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #00ffff;
+  color: black;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.node-container:hover .node-label {
+  opacity: 1;
+}
+
+/* Mirror the layout for left/right */
+.left-side { flex-direction: row-reverse; }
+
+
+.skill-core:hover .node {
+  opacity: 1;
+}
+
