@@ -1,39 +1,127 @@
-/* Base Reset and Variables */
+/* Import your fonts at the very top! */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;600;800&family=Space+Mono&display=swap');
+
+/* --- Base Reset and Variables --- */
 :root {
-    --bg-color: #050505; /* Deeper black */
-    --surface-color: rgba(30, 40, 50, 0.3); /* Transparent for glass effect */
-    --primary-color: #00ffff; /* True neon cyan */
-    --primary-glow: rgba(0, 255, 255, 0.5);
-    --secondary-color: #b366ff; /* Neon purple for accents */
-    --text-main: #c5c6c7;
-    --text-light: #ffffff;
-    --font-main: 'Poppins', sans-serif;
-    --font-mono: 'Space Mono', monospace;
+  /* Colors */
+  --bg-color: #050505; 
+  --surface-color: rgba(30, 40, 50, 0.3); 
+  --primary-color: #00ffff; 
+  --primary-glow: rgba(0, 255, 255, 0.5);
+  --secondary-color: #b366ff; 
+  
+  /* Text Colors (The Hierarchy) */
+  --text-light: #ffffff;      /* Primary: Headings */
+  --text-main: #c5c6c7;       /* Secondary: Paragraphs */
+  --text-muted: #6b7280;      /* Muted: Minor details, dates */
+
+  /* Typography */
+  --font-main: 'Poppins', sans-serif;
+  --font-heading: 'Orbitron', sans-serif;
+  --font-mono: 'Space Mono', monospace;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth; /* Smooth scrolling for nav links */
+  scroll-behavior: smooth; 
 }
 
+/* Custom Sci-Fi Text Selection Highlight */
+::selection {
+  background: rgba(0, 255, 255, 0.3);
+  color: var(--text-light);
+}
+
+::-moz-selection {
+  background: rgba(0, 255, 255, 0.3);
+  color: var(--text-light);
+}
+
+/* --- Layout & Core Tags --- */
 body {
-    /* Atmospheric dark gradient background */
-    background: radial-gradient(circle at top left, #1a0b2e 0%, #050505 50%, #001a1a 100%);
-    background-attachment: fixed;
-    color: var(--text-main);
-    font-family: var(--font-main);
-    line-height: 1.6;
+  background: radial-gradient(circle at top left, #1a0b2e 0%, #050505 50%, #001a1a 100%);
+  background-attachment: fixed;
+  color: var(--text-main);
+  font-family: var(--font-main);
+  line-height: 1.6;
+  
+  /* Base Cursor */
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%2300ffff" stroke-width="2"><circle cx="12" cy="12" r="3" fill="%2300ffff"/><circle cx="12" cy="12" r="8" opacity="0.5"/></svg>') 12 12, auto;
 }
 
-/* Typography */
-h1, h2, h3 {
-    color: var(--text-light);
-    font-weight: 800;
+/* Hover Cursor & Global Links */
+a, button, .btn, .hub-ball, .mobile-skill-card {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23ff00ff" stroke-width="2"><circle cx="12" cy="12" r="4" fill="%23ff00ff"/><circle cx="12" cy="12" r="10" opacity="0.8"/></svg>') 12 12, pointer !important;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  text-shadow: 0 0 8px var(--primary-glow);
+}
+
+/* Make backgrounds transparent so the body gradient shows through */
+section, 
+.hero, 
+.home-section,
+.games-section,
+.about-section,
+.contact-section {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Touchscreen Cursor Reset */
+@media (max-width: 1024px) {
+  body, a, button, .btn, .hub-ball, .mobile-skill-card {
+    cursor: auto !important;
+  }
+}
+
+/* --- Typography Hierarchy Rules --- */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-light);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.text-muted {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* --- Typewriter Component Styles --- */
+.typewriter-text {
+  font-family: var(--font-mono); 
+  display: inline-block;
+  color: var(--primary-color); /* Makes the initialization text cyan */
+}
+
+.cursor-blink {
+  color: var(--primary-color); 
+  font-weight: bold;
+  animation: blink 1s step-end infinite;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* The blink animation */
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .section-title {
@@ -123,6 +211,28 @@ nav {
     text-align: center;
     padding: 0 5%;
     background: radial-gradient(circle at center, #1f2833 0%, #0b0c10 100%);
+}
+.hero-content h1 {
+  /* We make the background 200% wide so we have room to move it */
+  background: linear-gradient(90deg, #00ffff 0%, #ff00ff 50%, #00ffff 100%);
+  background-size: 200% auto;
+  
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  
+  font-weight: 800;
+  
+  /* This runs the animation below */
+  animation: shine 4s linear infinite;
+}
+
+/* The animation that slides the gradient back and forth */
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
 }
 
 .greeting {
@@ -302,15 +412,36 @@ nav {
 }
 
 .display-image {
-    width: 100%;
-    height: 300px;
-    background-size: cover;
-    background-position: center;
-    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  position: relative; /* Essential for the absolute overlay */
+  width: 100%;
+  height: 400px; /* Adjust height as needed */
+  background-size: cover;
+  background-position: center;
+}
+
+/* This creates the seamless blend */
+.display-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%; /* How high the fade goes up the image */
+  
+  /* Replace #050505 with your exact --bg-color */
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 5, 5, 0) 0%,      /* Fully transparent at the start */
+    rgba(5, 5, 5, 0.8) 70%,    /* Starting to get thick */
+    rgba(5, 5, 5, 1) 100%      /* Matches your background perfectly */
+  );
 }
 
 .display-content {
-    padding: 2rem;
+  padding: 2rem;
+  margin-top: -40px; /* Pulls the text up slightly into the fade for a better look */
+  position: relative;
+  z-index: 2; /* Ensures text stays above the fade */
 }
 /* Adds space between project buttons */
 .display-content .btn {
@@ -1127,4 +1258,14 @@ footer p {
     min-height: 100vh;
     align-items: flex-start;
   }
+}
+
+/* Targets the text highlight color */
+::selection {
+  background: transparent;
+}
+
+/* For older Firefox browsers */
+::-moz-selection {
+  background: transparent;
 }

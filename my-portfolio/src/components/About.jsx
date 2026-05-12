@@ -1,10 +1,13 @@
 import SkillTree from './SkillTree';
-export default function About() {
+
+// 1. Add { setSkillObstacles } here to "catch" the prop from App.jsx
+export default function About({ setSkillObstacles }) {
   return (
     <section id="about" className="about-section">
       <h2 className="section-title">Character Stats</h2>
       <section className="skill-tree-container">
-        <SkillTree />
+        {/* 2. Pass it down one more level to the actual SkillTree */}
+        <SkillTree setSkillObstacles={setSkillObstacles} />
       </section>
 
       <div className="timeline-section">
