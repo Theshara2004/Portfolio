@@ -36,7 +36,8 @@ export default function ProjectDisplay({ project }) {
 
         <div className="project-contributions">
           <h4 className="sub-header">
-            {project.videoEmbed ? 'What I Built:' : 'My Contribution:'}
+            {/* Change the default fallback here */}
+            {project.contributionTitle || 'What I Built:'}
           </h4>
           <ul className="sci-fi-list">
             {project.contributions.map((item, i) => (

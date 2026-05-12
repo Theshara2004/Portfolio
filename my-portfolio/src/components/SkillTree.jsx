@@ -94,6 +94,34 @@ const SkillTree = () => {
           })}
         </div>
       </div>
+      {/* --- MOBILE FALLBACK GRID (Hidden on Desktop) --- */}
+<div className="mobile-skill-grid">
+  {/* Languages Section */}
+  <div className="mobile-skill-category">
+    <h3 className="mobile-skill-title">LANGUAGES</h3>
+    <div className="mobile-skill-flex">
+      {skillData.langs.map((skill) => (
+        <div key={skill.id} className="mobile-skill-card">
+          <img src={skill.icon} alt={skill.name} />
+          <span>{skill.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Tools Section */}
+  <div className="mobile-skill-category">
+    <h3 className="mobile-skill-title">TOOLS</h3>
+    <div className="mobile-skill-flex">
+      {skillData.tools.map((skill) => (
+        <div key={skill.id} className="mobile-skill-card">
+          <img src={skill.icon} alt={skill.name} />
+          <span>{skill.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
     </div>
   );
 };

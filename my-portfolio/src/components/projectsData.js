@@ -35,6 +35,7 @@ export const projects = [
       "A gamified mobile learning platform designed to pivot children's digital engagement toward academic success. WanderVerse integrates the Sri Lankan Grade 3 Mathematics syllabus into an interactive virtual world, transforming traditional curriculum into a series of engaging, high-stakes mini-games.",
     techStack: ['Unity', 'C#'],
     coverImage: 'Images/Whispering-Forest-CoverPhoto.png',
+    contributionTitle: 'My Contributions',
     contributions: [
       'Lead Development & Integration: Served as the technical lead for the project, architecting the core framework and managing the seamless integration of multiple modules into a single, cohesive Unity build.',
       'Multi-Game Systems: Designed and programmed three distinct mini-games, each featuring scalable difficulty levels specifically mapped to 1st-term mathematical learning outcomes.',

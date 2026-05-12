@@ -527,6 +527,19 @@ nav {
         border-bottom: 1px solid rgba(0, 255, 255, 0.1);
     }
 }
+/* Replace 1024px with whatever breakpoint you are using for mobile (e.g., 768px) */
+@media (max-width: 1024px) {
+  .project-details {
+    /* Stop it from stretching forever on phones */
+    max-height: 70vh; /* 70% of the phone screen */
+    
+    /* Force the scrollbar to appear inside the box */
+    overflow-y: auto;
+    
+    /* Make sure height isn't accidentally set to 'auto' or 'max-content' anywhere else in this block */
+    height: 100%; 
+  }
+}
 
 .game-card {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
@@ -1033,3 +1046,85 @@ footer p {
 }
 
 .particle:hover .particle-label { opacity: 1; }
+
+/* --- MOBILE SKILL GRID STYLES --- */
+
+/* By default, hide the mobile grid on desktop */
+.mobile-skill-grid {
+  display: none;
+  width: 100%;
+  max-width: 600px; /* Keeps it readable on tablets */
+  flex-direction: column;
+  gap: 40px;
+  padding: 2rem;
+  color: #00ffff;
+}
+
+.mobile-skill-title {
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* THE FLEXBOX MAGIC */
+.mobile-skill-flex {
+  display: flex;
+  flex-wrap: wrap;       /* Lets items jump to the next line if cramped */
+  justify-content: center; /* Centers the whole cluster */
+  gap: 20px;             /* Spacing between the cards */
+}
+
+/* The individual skill cards */
+.mobile-skill-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 100px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 12px;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.mobile-skill-card img {
+  width: 45px;
+  height: 45px;
+}
+
+.mobile-skill-card span {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* Optional tap highlight for touch screens */
+.mobile-skill-card:active {
+  transform: scale(0.95);
+  border-color: #00ffff;
+  background: rgba(0, 255, 255, 0.1);
+}
+
+/* --- THE MEDIA QUERY (The switcheroo) --- */
+@media (max-width: 1024px) {
+  /* 1. Hide the giant interactive tree */
+  .tree-wrapper {
+    display: none !important;
+  }
+  
+  /* 2. Show the flexbox grid */
+  .mobile-skill-grid {
+    display: flex;
+  }
+  
+  /* Reset container alignment to let the page scroll naturally */
+  .skill-tree-container {
+    height: auto;
+    min-height: 100vh;
+    align-items: flex-start;
+  }
+}
