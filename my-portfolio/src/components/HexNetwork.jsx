@@ -2,11 +2,8 @@ import React, { useEffect, useRef } from 'react';
 
 const HexNetwork = ({ obstacles = [] }) => {
   const canvasRef = useRef(null);
-  // Use a Ref to store obstacles so the animation loop can access them 
-  // without triggering a re-render/re-init of the canvas.
   const obstaclesRef = useRef(obstacles);
 
-  // Sync the prop to the Ref whenever it changes
   useEffect(() => {
     obstaclesRef.current = obstacles;
   }, [obstacles]);
@@ -23,7 +20,7 @@ const HexNetwork = ({ obstacles = [] }) => {
       constructor(x, y, size, color) {
         this.x = x;
         this.y = y;
-        this.baseX = x; // Remember original position to "return" to it
+        this.baseX = x;
         this.baseY = y;
         this.size = size;
         this.color = color;
@@ -34,7 +31,7 @@ const HexNetwork = ({ obstacles = [] }) => {
 
       draw() {
         ctx.strokeStyle = this.color;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 1.5; // Slightly thicker hex borders
         ctx.beginPath();
         for (let i = 0; i < 6; i++) {
           const angle = (Math.PI / 3) * i;
@@ -62,21 +59,17 @@ const HexNetwork = ({ obstacles = [] }) => {
       }
 
       update() {
-        // 1. Mouse repulsion
         if (mouse.x && mouse.y) {
           this.applyRepulsion(mouse.x, mouse.y, mouse.radius);
         }
 
-        // 2. Skill Node repulsion (Read from the REF, not the prop)
         obstaclesRef.current.forEach(obs => {
           this.applyRepulsion(obs.x, obs.y, 180);
         });
 
-        // 3. Drift
         this.x += this.vx;
         this.y += this.vy;
 
-        // 4. Edge bounce
         if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
         if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
       }
@@ -89,29 +82,46 @@ const HexNetwork = ({ obstacles = [] }) => {
         let size = (Math.random() * 4) + 4;
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
-        particlesArray.push(new Particle(x, y, size, 'rgba(0, 255, 255, 0.2)'));
+        // Hexes themselves are a bit more visible now (0.3 instead of 0.2)
+        particlesArray.push(new Particle(x, y, size, 'rgba(0, 255, 255, 0.3)'));
       }
     };
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw Particles
       for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update();
         particlesArray[i].draw();
       }
       
-      // Connect lines
+      // --- UPDATED CONNECT LOGIC ---
       for (let a = 0; a < particlesArray.length; a++) {
         for (let b = a; b < particlesArray.length; b++) {
           let dx = particlesArray[a].x - particlesArray[b].x;
           let dy = particlesArray[a].y - particlesArray[b].y;
           let distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 110) {
-            ctx.strokeStyle = `rgba(0, 255, 255, ${(1 - distance/110) * 0.05})`;
+          
+          // Increased reach to 130 for more connections
+          if (distance < 130) {
+            // Increased opacity multiplier to 0.3 for visibility
+            let opacity = (1 - distance / 130) * 0.3; 
+            
+            ctx.strokeStyle = `rgba(0, 255, 255, ${opacity})`;
+            ctx.lineWidth = 1.2;
+            
+            // Add a subtle glow to the lines
+            ctx.shadowBlur = 3;
+            ctx.shadowColor = 'rgba(0, 255, 255, 0.5)';
+            
             ctx.beginPath();
             ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
             ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
             ctx.stroke();
+            
+            // Reset shadow so it doesn't blur everything else
+            ctx.shadowBlur = 0;
           }
         }
       }
@@ -132,15 +142,15 @@ const HexNetwork = ({ obstacles = [] }) => {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('resize', handleResize);
     
-    handleResize(); // Sets width and calls init()
-    animate();      // Starts the loop
+    handleResize();
+    animate();
 
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []); // EMPTY ARRAY: Only run once on mount!
+  }, []);
 
   return (
     <canvas
