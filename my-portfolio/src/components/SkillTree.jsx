@@ -1,84 +1,98 @@
 import React, { useState } from 'react';
 
 const SkillTree = () => {
-  const [activeBranch, setActiveBranch] = useState(null);
+  const [activeLayer, setActiveLayer] = useState('none');
 
-  const skills = {
+  const skillData = {
     langs: [
-      { id: 'python', name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', top: '120px' },
-      { id: 'cpp', name: 'C++ / C#', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg', top: '240px' },
-      { id: 'html', name: 'HTML / CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', top: '360px' },
-      { id: 'java', name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg', top: '480px' }
+      { id: 'py', name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+      { id: 'csharp', name: 'C#', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg' },
+      { id: 'html', name: 'HTML', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+      { id: 'java', name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+      { id: 'css', name: 'CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+      { id: 'js', name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' }
     ],
     tools: [
-      { id: 'unreal', name: 'Unreal Engine', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unrealengine/unrealengine-original.svg', top: '180px' },
-      { id: 'unity', name: 'Unity', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg', top: '300px' },
-      { id: 'github', name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', top: '420px' }
+      { id: 'unreal', name: 'Unreal', icon: '/icons/Unreal.png' },
+      { id: 'unity', name: 'Unity', icon: '/icons/Unity-icon.png' },
+      { id: 'git', name: 'GitHub', icon: '/icons/Github-icon.png' },
+      { id: 'react', name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' }
     ]
+  };
+
+  const getParticlePos = (index, total, radius, side) => {
+    // Determine the spread angle (e.g., 140 degrees spread)
+    const spread = Math.PI * 0.8; 
+    
+    // Calculate the step based on total particles
+    const step = total > 1 ? spread / (total - 1) : 0;
+    const startAngle = side === 'left' ? Math.PI - spread / 2 : -spread / 2;
+    
+    const angle = startAngle + (index * step);
+    
+    return {
+      x: radius * Math.cos(angle),
+      y: radius * Math.sin(angle)
+    };
   };
 
   return (
     <div className="skill-tree-container">
-      <div className="tree-wrapper">
-        <svg className="tree-svg" viewBox="0 0 1000 600" fill="none">
-          {/* Main Backbone */}
-          <path className="branch backbone active" d="M 350 300 L 650 300" />
-
-          {/* CODE BRANCH (LEFT) */}
-          <g className={`branch-group ${activeBranch === 'langs' ? 'active' : ''}`}>
-            <path d="M 300 300 L 240 300 L 180 120 L 100 120" />
-            <path d="M 300 300 L 200 300 L 170 240 L 100 240" />
-            <path d="M 300 300 L 210 300 L 190 360 L 100 360" />
-            <path d="M 300 300 L 240 300 L 180 480 L 100 480" />
-            
-            {/* HOVER ZONE - Invisible rectangle covering the left wing */}
-            <rect 
-              x="50" y="100" width="300" height="400" 
-              fill="transparent" pointerEvents="all"
-              onMouseEnter={() => setActiveBranch('langs')}
-              onMouseLeave={() => setActiveBranch(null)}
-            />
+      <div className="tree-wrapper" onMouseLeave={() => setActiveLayer('none')}>
+        <svg className="tree-svg" viewBox="0 0 1000 600">
+          <g className={`line-layer ${activeLayer !== 'none' ? 'visible' : ''}`}>
+            <line x1="500" y1="300" x2="300" y2="300" className="chem-bond" />
+            <line x1="500" y1="300" x2="700" y2="300" className="chem-bond" />
           </g>
 
-          {/* ENGINES BRANCH (RIGHT) */}
-          <g className={`branch-group ${activeBranch === 'tools' ? 'active' : ''}`}>
-            <path d="M 700 300 L 760 300 L 820 180 L 880 180" />
-            <path d="M 700 300 L 880 300" />
-            <path d="M 700 300 L 760 300 L 820 420 L 880 420" />
+          {/* LEFT Particle Lines */}
+          <g className={`line-layer ${activeLayer === 'code-hover' ? 'visible' : ''}`}>
+            {skillData.langs.map((_, i) => {
+              const pos = getParticlePos(i, skillData.langs.length, 160, 'left');
+              return <line key={i} x1="300" y1="300" x2={300 + pos.x} y2={300 + pos.y} className="chem-bond particle-bond" />;
+            })}
+          </g>
 
-            {/* HOVER ZONE - Invisible rectangle covering the right wing */}
-            <rect 
-              x="650" y="100" width="300" height="400" 
-              fill="transparent" pointerEvents="all"
-              onMouseEnter={() => setActiveBranch('tools')}
-              onMouseLeave={() => setActiveBranch(null)}
-            />
+          {/* RIGHT Particle Lines */}
+          <g className={`line-layer ${activeLayer === 'engines-hover' ? 'visible' : ''}`}>
+            {skillData.tools.map((_, i) => {
+              const pos = getParticlePos(i, skillData.tools.length, 160, 'right');
+              return <line key={i} x1="700" y1="300" x2={700 + pos.x} y2={300 + pos.y} className="chem-bond particle-bond" />;
+            })}
           </g>
         </svg>
 
-        {/* NODES - Now absolute positioned to the wrapper, not the hub */}
-        <div className={`node-layer ${activeBranch === 'langs' ? 'visible' : ''}`}>
-          {skills.langs.map(skill => (
-            <div key={skill.id} className="node-container left-side" style={{ left: '60px', top: skill.top }}>
-              <div className="logo-circle"><img src={skill.icon} alt="" /></div>
-              <div className="node-label">{skill.name}</div>
-            </div>
-          ))}
+        <div className="hub-ball main-hub" style={{ left: '500px', top: '300px' }} onMouseEnter={() => setActiveLayer('main-hover')}>
+          SKILLS
         </div>
 
-        <div className={`node-layer ${activeBranch === 'tools' ? 'visible' : ''}`}>
-          {skills.tools.map(skill => (
-            <div key={skill.id} className="node-container right-side" style={{ left: '900px', top: skill.top }}>
-              <div className="logo-circle"><img src={skill.icon} alt="" /></div>
-              <div className="node-label">{skill.name}</div>
-            </div>
-          ))}
+        {/* LEFT HUB */}
+        <div className={`hub-ball sub-hub ${activeLayer !== 'none' ? 'visible' : ''}`} style={{ left: '300px', top: '300px' }} onMouseEnter={() => setActiveLayer('code-hover')}>
+          LANGUAGES
+          {skillData.langs.map((skill, i) => {
+            const pos = getParticlePos(i, skillData.langs.length, 160, 'left');
+            return (
+              <div key={skill.id} className={`particle ${activeLayer === 'code-hover' ? 'spawn' : ''}`} style={{ transform: `translate(${pos.x}px, ${pos.y}px)` }}>
+                <div className="particle-core"><img src={skill.icon} alt="" /></div>
+                <div className="particle-label">{skill.name}</div>
+              </div>
+            );
+          })}
         </div>
 
-        {/* BALLS */}
-        <div className="hub-ball" style={{ left: '500px', top: '300px' }}>SKILLS</div>
-        <div className="hub-ball" style={{ left: '300px', top: '300px' }}>CODE</div>
-        <div className="hub-ball" style={{ left: '700px', top: '300px' }}>ENGINES</div>
+        {/* RIGHT HUB */}
+        <div className={`hub-ball sub-hub ${activeLayer !== 'none' ? 'visible' : ''}`} style={{ left: '700px', top: '300px' }} onMouseEnter={() => setActiveLayer('engines-hover')}>
+          TOOLS
+          {skillData.tools.map((skill, i) => {
+            const pos = getParticlePos(i, skillData.tools.length, 160, 'right');
+            return (
+              <div key={skill.id} className={`particle ${activeLayer === 'engines-hover' ? 'spawn' : ''}`} style={{ transform: `translate(${pos.x}px, ${pos.y}px)` }}>
+                <div className="particle-core"><img src={skill.icon} alt="" /></div>
+                <div className="particle-label">{skill.name}</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

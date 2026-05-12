@@ -2,6 +2,7 @@ import SkillTree from './SkillTree';
 export default function About() {
   return (
     <section id="about" className="about-section">
+      <h2 className="section-title">Character Stats</h2>
       <section className="skill-tree-container">
         <SkillTree />
       </section>
