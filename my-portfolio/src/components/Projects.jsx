@@ -4,29 +4,29 @@ import ProjectDisplay from './ProjectDisplay';
 
 export default function Projects() {
   const [activeId, setActiveId] = useState(projects[0].id);
-
   const activeProject = projects.find((p) => p.id === activeId);
 
   return (
-    <section id="games" className="portfolio-section">
-      <h2 className="section-title">Missions Completed</h2>
+    <section id="games" className="projects-section-container">
+      <h2 className="section-title">Mission Log</h2>
 
-      <div className="inventory-ui">
-        <div className="inventory-list">
-          <h4 className="list-header">SELECT DATAPAD</h4>
-
+      <div className="game-ui-frame">
+        {/* TOP TAB NAVIGATION */}
+        <nav className="project-tab-row">
           {projects.map((project) => (
             <button
               key={project.id}
-              className={`inventory-item ${activeId === project.id ? 'active-item' : ''}`}
+              className={`tab-unit ${activeId === project.id ? 'active-tab' : ''}`}
               onClick={() => setActiveId(project.id)}
             >
-              <span className="item-icon">{'>>'}</span> {project.title}
+              <span className="tab-label">{project.title}</span>
+              <div className="tab-indicator"></div>
             </button>
           ))}
-        </div>
+        </nav>
 
-        <div className="inventory-display">
+        {/* CONTENT AREA */}
+        <div className="project-window-pane">
           <ProjectDisplay project={activeProject} />
         </div>
       </div>

@@ -4,48 +4,50 @@ export default function ProjectDisplay({ project }) {
   if (!project) return null;
 
   return (
-    <div className="project-details active-project" id={project.id}>
-      <div
-        className="display-image"
+    <div className="project-detail-view">
+      <div 
+        className="project-hero-banner" 
         style={{ backgroundImage: `url('${project.coverImage}')` }}
-      />
-      <div className="display-content">
-        <h3 className="neon-text">{project.title}</h3>
-        <p>{project.description}</p>
+      >
+        <div className="banner-text">
+          <h3 className="neon-header">{project.title}</h3>
+        </div>
+      </div>
 
-        <div className="tech-stack">
+      <div className="project-body-content">
+        <p className="description-text">{project.description}</p>
+
+        <div className="tech-badge-container">
           {project.techStack.map((tech) => (
-            <span key={tech}>{tech}</span>
+            <span key={tech} className="tech-badge">{tech}</span>
           ))}
         </div>
 
-        {project.videoEmbed && (
-          <div className="display-video">
-            <iframe
-              src={project.videoEmbed}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
+        <div className="mission-grid">
+          <div className="objectives-list">
+            <h4 className="sub-header">{project.contributionTitle || 'Mission Objectives:'}</h4>
+            <ul className="cyber-list">
+              {project.contributions.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
           </div>
-        )}
 
-        <br />
-
-        <div className="project-contributions">
-          <h4 className="sub-header">
-            {/* Change the default fallback here */}
-            {project.contributionTitle || 'What I Built:'}
-          </h4>
-          <ul className="sci-fi-list">
-            {project.contributions.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
+          {project.videoEmbed && (
+            <div className="video-wrapper">
+              <iframe 
+                src={project.videoEmbed} 
+                title="Project Video" 
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen 
+              />
+            </div>
+          )}
         </div>
 
+        {/* CODE SHOWCASE SECTION */}
         {project.codeShowcase && (
           <div className="code-showcase">
             <h4 className="sub-header">{project.codeShowcase.label}</h4>
@@ -57,6 +59,7 @@ export default function ProjectDisplay({ project }) {
           </div>
         )}
 
+        {/* BLUEPRINT EMBED SECTION */}
         {project.blueprintEmbed && (
           <div className="blueprint-showcase">
             <h4 className="sub-header">Blueprint for the Whispering Angel:</h4>
@@ -71,17 +74,13 @@ export default function ProjectDisplay({ project }) {
           </div>
         )}
 
+        {/* IMAGE GALLERY */}
         {project.gallery && <ImageGallery images={project.gallery} />}
 
-        <div style={{ marginTop: '1.5rem' }}>
+        {/* ACTION BUTTONS */}
+        <div className="action-buttons">
           {project.links.map((link) => (
-            <a
-              key={link.label}
-              href={link.url}
-              target="_blank"
-              rel="noreferrer"
-              className="btn primary-btn"
-            >
+            <a key={link.label} href={link.url} target="_blank" rel="noreferrer" className="cyber-btn">
               {link.label}
             </a>
           ))}

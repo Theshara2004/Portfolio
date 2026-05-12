@@ -294,266 +294,544 @@ nav {
     box-shadow: 0 0 15px var(--secondary-color);
 }
 
-/* Projects Section (CSS Grid) */
-.portfolio-section, .about-section, footer {
-    padding: 6rem 5%;
-    background-color: transparent; 
-}
-
-/* Inventory UI Layout */
-.inventory-ui {
-    display: flex;
-    gap: 2rem;
-    max-width: 1100px;
+/* Projects Section Container */
+.projects-section-container {
+    padding: 5rem 2rem;
+    max-width: 1400px;
     margin: 0 auto;
-    background: rgba(5, 5, 5, 0.4);
-    border: 1px solid rgba(0, 255, 255, 0.1);
-    border-radius: 12px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    overflow: hidden;
 }
 
-/* LEFT SIDE: The List */
-.inventory-list {
-    flex: 0 0 30%; 
-    background: rgba(255, 255, 255, 0.02);
-    /* Changed from border-left to border-right */
-    border-right: 1px solid rgba(0, 255, 255, 0.1); 
-    padding: 2rem 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.list-header {
-    color: var(--secondary-color);
+.section-title {
+    font-size: 3rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 3.5rem;
     font-family: var(--font-mono);
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    padding: 0 2rem 1rem 2rem;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.inventory-item {
-    background: transparent;
-    border: none;
-    color: var(--text-main);
-    text-align: left;
-    padding: 1rem 2rem;
-    font-family: var(--font-main);
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    /* Changed to right border */
-    border-right: 3px solid transparent; 
-}
-
-/* Hover and Active States */
-.inventory-item:hover {
-    background: rgba(0, 255, 255, 0.05);
-    color: var(--text-light);
-}
-
-.inventory-item.active-item {
-    /* Fades from right to left now */
-    background: linear-gradient(270deg, rgba(0, 255, 255, 0.1) 0%, transparent 100%);
-    /* Glowing border moved to the right */
-    border-right: 3px solid var(--primary-color);
-    color: var(--text-light);
-    /* Glow shadow moved to the right */
-    box-shadow: inset -10px 0 20px -10px var(--primary-glow);
-}
-
-.inventory-item.active-item .item-icon, .inventory-item:hover .item-icon {
-    opacity: 1;
-}
-
-/* LEFT SIDE: The Display */
-.inventory-display {
-    flex: 1; 
+    text-transform: uppercase;
+    letter-spacing: 4px;
     position: relative;
-    /* FIX 1: Changed min-height to a strict, locked height */
-    height: 500px; 
-    /* FIX 2: Tells the box to add a scrollbar if the content overflows */
-    overflow-y: auto; 
-    
-    /* Optional: hides the harsh bottom border if you scroll past it */
-    border-bottom: 1px solid transparent;
-}
-/* --- Datapad Custom Scrollbar --- */
-.inventory-display::-webkit-scrollbar {
-    width: 8px; /* Thin, sleek vertical scrollbar */
+    text-shadow: 
+        0 0 10px var(--primary-glow),
+        0 0 20px var(--primary-glow),
+        0 0 30px var(--primary-glow);
 }
 
-.inventory-display::-webkit-scrollbar-track {
-    background: rgba(0, 255, 255, 0.02); /* Very faint track */
-    border-left: 1px solid rgba(0, 255, 255, 0.1);
-}
-
-.inventory-display::-webkit-scrollbar-thumb {
-    background: var(--primary-color); /* Neon cyan thumb */
-    border-radius: 4px;
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: var(--primary-color);
     box-shadow: 0 0 10px var(--primary-glow);
 }
 
-.inventory-display::-webkit-scrollbar-thumb:hover {
-    background: var(--text-light); /* Turns white when hovered */
+/* Main Game UI Frame */
+.game-ui-frame {
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 0;
+    box-shadow: 
+        0 0 40px rgba(0, 0, 0, 0.9),
+        0 0 80px rgba(0, 255, 255, 0.1),
+        inset 0 0 30px rgba(0, 255, 255, 0.03);
+    overflow: hidden;
+    position: relative;
 }
 
-.project-details {
-    display: none; /* Hides all projects by default */
-    animation: HUDfade 0.4s ease-out forwards;
+/* Cyberpunk corner accents */
+.game-ui-frame::before,
+.game-ui-frame::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border: 2px solid var(--primary-color);
+    z-index: 10;
+    filter: drop-shadow(0 0 5px var(--primary-glow));
 }
 
-/* Only the active project is shown */
-.project-details.active-project {
-    display: block; 
+.game-ui-frame::before {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
 }
 
-.display-image {
-  position: relative; /* Essential for the absolute overlay */
-  width: 100%;
-  height: 400px; /* Adjust height as needed */
-  background-size: cover;
-  background-position: center;
+.game-ui-frame::after {
+    top: -2px;
+    right: -2px;
+    border-left: none;
+    border-bottom: none;
 }
 
-/* This creates the seamless blend */
-.display-image::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 50%; /* How high the fade goes up the image */
-  
-  /* Replace #050505 with your exact --bg-color */
-  background: linear-gradient(
-    to bottom,
-    rgba(5, 5, 5, 0) 0%,      /* Fully transparent at the start */
-    rgba(5, 5, 5, 0.8) 70%,    /* Starting to get thick */
-    rgba(5, 5, 5, 1) 100%      /* Matches your background perfectly */
-  );
+/* TOP TAB NAVIGATION - Enhanced Cyberpunk Style */
+.project-tab-row {
+    display: flex;
+    background: linear-gradient(180deg, rgba(0, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.4) 100%);
+    border-bottom: 2px solid rgba(0, 255, 255, 0.5);
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) rgba(0, 0, 0, 0.3);
+    position: relative;
+    padding: 0.5rem 0 0 0;
 }
 
-.display-content {
-  padding: 2rem;
-  margin-top: -40px; /* Pulls the text up slightly into the fade for a better look */
-  position: relative;
-  z-index: 2; /* Ensures text stays above the fade */
-}
-/* Adds space between project buttons */
-.display-content .btn {
-    margin-right: 1rem; /* Space to the right of each button */
-    margin-bottom: 0.5rem; /* Space below if they wrap on mobile */
-    display: inline-block; /* Ensures margin works correctly */
-}
-
-/* Removes margin from the very last button so it stays aligned */
-.display-content .btn:last-child {
-    margin-right: 0;
-}
-
-.neon-text {
-    font-size: 2rem;
-    color: var(--text-light);
-    margin-bottom: 1rem;
-    text-shadow: 0 0 10px var(--primary-glow);
-}
-/* YouTube Video Container */
-.display-video {
+/* Animated scanline effect */
+.project-tab-row::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
     width: 100%;
-    height: 300px; /* This keeps it the exact same height as your old images */
-    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
-    background-color: #000; /* Keeps the background black while the video loads */
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    animation: scanline 4s linear infinite;
+    opacity: 0.7;
 }
 
-/* Forces the YouTube iframe to stretch perfectly inside your container */
-.display-video iframe {
-    width: 100%;
-    height: 100%;
+@keyframes scanline {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.project-tab-row::-webkit-scrollbar {
+    height: 6px;
+}
+
+.project-tab-row::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.project-tab-row::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* Individual Tab Unit */
+.tab-unit {
+    flex: 1;
+    min-width: 200px;
+    background: transparent;
     border: none;
-    display: block; /* Removes weird spacing issues under iframes */
+    border-right: 1px solid rgba(0, 255, 255, 0.15);
+    padding: 1.2rem 1.5rem;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.4);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    overflow: hidden;
 }
-/* --- Additional Project Details --- */
 
-/* Small headers for the new sections */
+/* Angled top edge effect */
+.tab-unit::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-unit:last-child {
+    border-right: none;
+}
+
+.tab-unit:hover {
+    background: rgba(0, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 8px var(--primary-glow);
+}
+
+.tab-unit:hover::after {
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+}
+
+/* Active Tab State */
+.tab-unit.active-tab {
+    background: linear-gradient(180deg, rgba(0, 255, 255, 0.15) 0%, rgba(0, 255, 255, 0.05) 100%);
+    color: var(--text-light);
+    text-shadow: 0 0 10px var(--primary-glow);
+    border-right: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: inset 0 0 30px rgba(0, 255, 255, 0.1);
+}
+
+.tab-unit.active-tab::after {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.tab-label {
+    display: block;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Active tab indicator line */
+.tab-indicator {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-unit.active-tab .tab-indicator {
+    background: var(--primary-color);
+    box-shadow: 
+        0 0 15px var(--primary-glow),
+        0 0 25px var(--primary-glow),
+        0 -5px 20px rgba(0, 255, 255, 0.3);
+    animation: tabPulse 2s ease-in-out infinite;
+}
+
+@keyframes tabPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* PROJECT CONTENT WINDOW */
+.project-window-pane {
+    min-height: 600px;
+    max-height: 900px;
+    overflow-y: auto;
+    position: relative;
+    scrollbar-gutter: stable;
+    background: 
+        linear-gradient(180deg, rgba(0, 255, 255, 0.03) 0%, transparent 100%),
+        radial-gradient(ellipse at top, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+}
+
+/* Custom Scrollbar */
+.project-window-pane::-webkit-scrollbar {
+    width: 12px;
+}
+
+.project-window-pane::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.6);
+    border-left: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.project-window-pane::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary-color) 0%, rgba(0, 255, 255, 0.5) 100%);
+    border-radius: 0;
+    box-shadow: 
+        0 0 15px var(--primary-glow),
+        inset 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.project-window-pane::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+    box-shadow: 0 0 25px var(--primary-glow);
+}
+
+/* PROJECT DETAIL VIEW */
+.project-detail-view {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Hero Banner */
+.project-hero-banner {
+    width: 100%;
+    height: 450px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 3rem;
+    border-bottom: 3px solid rgba(0, 255, 255, 0.4);
+}
+
+/* Enhanced gradient overlay */
+.project-hero-banner::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 75%;
+    background: linear-gradient(
+        to bottom,
+        rgba(5, 5, 5, 0) 0%,
+        rgba(5, 5, 5, 0.5) 40%,
+        rgba(5, 5, 5, 0.9) 80%,
+        rgba(5, 5, 5, 1) 100%
+    );
+    pointer-events: none;
+}
+
+.banner-text {
+    position: relative;
+    z-index: 2;
+}
+
+.neon-header {
+    font-size: 3.5rem;
+    color: var(--text-light);
+    margin: 0;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 
+        0 0 10px var(--primary-color),
+        0 0 20px var(--primary-glow),
+        0 0 40px var(--primary-glow),
+        0 0 60px var(--primary-glow);
+    animation: subtleFlicker 4s infinite alternate;
+}
+
+@keyframes subtleFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.95; }
+}
+
+/* PROJECT BODY CONTENT */
+.project-body-content {
+    padding: 3rem 3rem 4rem 3rem;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 255, 255, 0.02) 100%);
+}
+
+.description-text {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 2.5rem;
+    text-align: justify;
+}
+
+/* Tech Stack Badges */
+.tech-badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 3rem;
+}
+
+.tech-badge {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2) 0%, rgba(0, 255, 255, 0.08) 100%);
+    color: var(--primary-color);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0;
+    border: 1px solid rgba(0, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    position: relative;
+    clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+}
+
+.tech-badge:hover {
+    background: rgba(0, 255, 255, 0.25);
+    color: var(--text-light);
+    box-shadow: 0 0 20px var(--primary-glow);
+    transform: translateY(-3px);
+}
+
+/* Mission Grid */
+.mission-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+/* Objectives List */
+.objectives-list {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 0;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    position: relative;
+    box-shadow: 
+        0 0 20px rgba(0, 0, 0, 0.5),
+        inset 0 0 20px rgba(0, 255, 255, 0.05);
+}
+
+/* Enhanced corner accents */
+.objectives-list::before,
+.objectives-list::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    filter: drop-shadow(0 0 5px var(--primary-glow));
+}
+
+.objectives-list::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.objectives-list::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: none;
+    border-top: none;
+}
+
 .sub-header {
     color: var(--text-light);
-    font-family: var(--font-mono); /* Using a monospace/terminal font if you have one */
+    font-family: var(--font-mono);
     font-size: 1rem;
-    margin: 1.5rem 0 0.75rem 0;
+    margin: 0 0 1.5rem 0;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 1px dashed rgba(0, 255, 255, 0.2);
-    padding-bottom: 5px;
-    display: inline-block;
+    letter-spacing: 2px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    text-shadow: 0 0 10px var(--primary-glow);
 }
 
-/* Sci-Fi Bulleted List */
-.sci-fi-list {
-    list-style: none; /* Removes standard boring bullets */
+.cyber-list {
+    list-style: none;
     padding-left: 0;
-    margin-bottom: 1.5rem;
+    margin: 0;
 }
 
-.sci-fi-list li {
+.cyber-list li {
     position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.8rem;
-    color: var(--text-main);
-    font-size: 0.95rem;
-    line-height: 1.4;
+    padding-left: 2rem;
+    margin-bottom: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
-/* Custom terminal arrows instead of bullets */
-.sci-fi-list li::before {
-    content: '>';
+.cyber-list li::before {
+    content: '▸';
     position: absolute;
     left: 0;
     color: var(--primary-color);
     font-family: var(--font-mono);
-    font-weight: bold;
-    text-shadow: 0 0 5px var(--primary-glow);
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px var(--primary-glow);
+    animation: pulse 2s ease-in-out infinite;
 }
 
-/* Code Screenshot Styling */
-.code-showcase {
-    margin-bottom: 2rem;
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.95); }
 }
 
-.code-img {
-    width: 100%; /* Makes the image fit perfectly in the container */
-    border-radius: 6px;
-    border: 1px solid rgba(0, 255, 255, 0.2);
-    background: #000; /* Dark background just in case your screenshot has transparency */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+/* Video Wrapper */
+.video-wrapper {
+    background: #000;
+    border-radius: 0;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 255, 0.4);
+    height: 100%;
+    min-height: 350px;
+    position: relative;
+    box-shadow: 
+        0 0 30px rgba(0, 255, 255, 0.2),
+        inset 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    border: none;
     display: block;
 }
 
-/* Slight zoom and glow when hovering over the code image */
+/* CODE SHOWCASE SECTION */
+.code-showcase {
+    margin: 3rem 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    position: relative;
+    box-shadow: 
+        0 0 20px rgba(0, 0, 0, 0.5),
+        inset 0 0 20px rgba(0, 255, 255, 0.05);
+}
+
+.code-showcase::before,
+.code-showcase::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid var(--primary-color);
+    filter: drop-shadow(0 0 5px var(--primary-glow));
+}
+
+.code-showcase::before {
+    top: -1px;
+    right: -1px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.code-showcase::after {
+    bottom: -1px;
+    left: -1px;
+    border-right: none;
+    border-top: none;
+}
+
+.code-img {
+    width: 100%;
+    border-radius: 0;
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    background: #000;
+    box-shadow: 
+        0 8px 30px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    display: block;
+    margin-top: 1rem;
+}
+
 .code-img:hover {
     border-color: var(--primary-color);
     transform: scale(1.02);
-    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.9),
+        0 0 30px var(--primary-glow);
 }
-/* --- BlueprintUE Embed Styling --- */
 
+/* BLUEPRINT SHOWCASE */
 .blueprint-showcase {
-    margin: 2rem 0;
+    margin: 3rem 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    position: relative;
+    box-shadow: 
+        0 0 20px rgba(0, 0, 0, 0.5),
+        inset 0 0 20px rgba(0, 255, 255, 0.05);
 }
 
 .blueprint-container {
     width: 100%;
-    /* This height makes the graph actually readable */
-    height: 600px; 
+    height: 600px;
     background: #000;
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    border-radius: 8px;
+    border: 2px solid rgba(0, 255, 255, 0.4);
+    border-radius: 0;
     overflow: hidden;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 
+        0 0 20px rgba(0, 0, 0, 0.8),
+        inset 0 0 20px rgba(0, 255, 255, 0.1);
+    margin-top: 1rem;
 }
 
 .blueprint-container iframe {
@@ -562,172 +840,268 @@ nav {
     border: none;
 }
 
-/* Add a little "Data Loading" look to the container */
-.blueprint-container::before {
-    content: "LOADING BLUEPRINT NODES...";
-    position: absolute;
-    color: var(--primary-color);
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    padding: 10px;
-    z-index: -1; /* Sits behind the iframe */
-}
-/* Container for the gallery and arrows */
+/* Image Gallery */
 .gallery-wrapper {
     position: relative;
     width: 100%;
-    margin: 1.5rem 0;
+    margin: 3rem 0;
+    padding: 1.5rem 0;
 }
 
-/* The horizontal scrolling strip */
 .image-gallery {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    padding: 0.5rem 0;
-    
-    /* Hide scrollbars */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE */
+    padding: 1rem 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) rgba(0, 0, 0, 0.3);
 }
 
 .image-gallery::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+    height: 10px;
 }
 
-/* Individual Images */
+.image-gallery::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 0;
+}
+
+.image-gallery::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-glow);
+    border-radius: 0;
+}
+
 .image-gallery img {
     flex: 0 0 auto;
-    width: 280px; /* Adjust size as needed */
-    height: 180px;
+    width: 400px;
+    height: 250px;
     object-fit: cover;
-    border-radius: 4px;
-    border: 1px solid rgba(0, 255, 255, 0.1);
+    border-radius: 0;
+    border: 2px solid rgba(0, 255, 255, 0.3);
     scroll-snap-align: start;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.7);
 }
 
 .image-gallery img:hover {
     border-color: var(--primary-color);
+    transform: scale(1.05);
+    box-shadow: 0 0 40px var(--primary-glow);
 }
 
-/* Navigation Arrows */
+/* Gallery Navigation Arrows */
 .gallery-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.9);
     color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    width: 55px;
+    height: 55px;
+    border-radius: 0;
     cursor: pointer;
     z-index: 5;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     transition: all 0.3s ease;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
 }
 
 .gallery-arrow:hover {
     background: var(--primary-color);
     color: #000;
-    box-shadow: 0 0 15px var(--primary-glow);
+    box-shadow: 
+        0 0 30px var(--primary-glow),
+        inset 0 0 15px rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.15);
 }
 
-.gallery-arrow.left { left: 10px; }
-.gallery-arrow.right { right: 10px; }
-
-/* Fade animation to make it feel like a screen turning on */
-@keyframes HUDfade {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+.gallery-arrow:active {
+    transform: translateY(-50%) scale(1.05);
 }
 
-/* Mobile Responsiveness: Stacks the list on top of the display on small screens */
-@media (max-width: 768px) {
-    .inventory-ui {
-        flex-direction: column; 
-    }
-    .inventory-list {
-        border-right: none;
-        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
-    }
-}
-/* Replace 1024px with whatever breakpoint you are using for mobile (e.g., 768px) */
-@media (max-width: 1024px) {
-  .project-details {
-    /* Stop it from stretching forever on phones */
-    max-height: 70vh; /* 70% of the phone screen */
-    
-    /* Force the scrollbar to appear inside the box */
-    overflow-y: auto;
-    
-    /* Make sure height isn't accidentally set to 'auto' or 'max-content' anywhere else in this block */
-    height: 100%; 
-  }
+.gallery-arrow.left { 
+    left: 20px;
 }
 
-.game-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-    backdrop-filter: blur(10px); /* The frosted glass effect */
-    -webkit-backdrop-filter: blur(10px); /* For Safari support */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.3); /* The shine on the top edge */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+.gallery-arrow.right { 
+    right: 20px;
 }
 
-.game-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--primary-color); /* Edge lights up on hover */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 15px var(--primary-glow);
-}
-
-.card-image {
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-    border-bottom: 2px solid var(--primary-color);
-}
-
-.card-content {
-    padding: 1.5rem;
-}
-
-.card-content h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.card-content p {
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-    min-height: 50px;
-}
-
-.tech-stack {
+/* Action Buttons */
+.action-buttons {
     display: flex;
+    gap: 1.2rem;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-top: 3rem;
 }
 
-.tech-stack span {
-    background-color: var(--bg-color);
-    color: var(--secondary-color);
+.cyber-btn {
+    display: inline-block;
+    padding: 1.1rem 2.5rem;
+    background: rgba(0, 255, 255, 0.1);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 0;
+    text-decoration: none;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    position: relative;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    overflow: hidden;
 }
 
+.cyber-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.cyber-btn:hover {
+    color: #000;
+    text-shadow: none;
+    box-shadow: 
+        0 0 30px var(--primary-glow),
+        inset 0 0 20px rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px);
+}
+
+.cyber-btn:hover::before {
+    left: 0;
+}
+
+.cyber-btn:active {
+    transform: translateY(-2px);
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* RESPONSIVE MOBILE LAYOUT */
+@media (max-width: 1024px) {
+    .project-body-content {
+        padding: 2.5rem 2rem;
+    }
+
+    .mission-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .neon-header {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .projects-section-container {
+        padding: 3rem 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        letter-spacing: 2px;
+        margin-bottom: 2rem;
+    }
+
+    .project-tab-row {
+        padding: 0.3rem 0 0 0;
+    }
+
+    .tab-unit {
+        min-width: 140px;
+        padding: 1rem;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+    }
+
+    .project-hero-banner {
+        height: 300px;
+        padding: 2rem 1.5rem;
+    }
+
+    .neon-header {
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+    }
+
+    .project-body-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .description-text {
+        font-size: 1rem;
+        text-align: left;
+    }
+
+    .tech-badge {
+        font-size: 0.7rem;
+        padding: 0.5rem 0.9rem;
+    }
+
+    .objectives-list {
+        padding: 1.5rem;
+    }
+
+    .sub-header {
+        font-size: 0.9rem;
+    }
+
+    .cyber-list li {
+        font-size: 0.9rem;
+        padding-left: 1.5rem;
+    }
+
+    .image-gallery img {
+        width: 320px;
+        height: 200px;
+    }
+
+    .gallery-arrow {
+        width: 45px;
+        height: 45px;
+        font-size: 1.4rem;
+    }
+
+    .gallery-arrow.left { left: 10px; }
+    .gallery-arrow.right { right: 10px; }
+
+    .cyber-btn {
+        padding: 0.9rem 1.8rem;
+        font-size: 0.85rem;
+    }
+
+    .blueprint-container {
+        height: 400px;
+    }
+}
 /* About Section */
 .about-section {
     padding: 6rem 5%;
