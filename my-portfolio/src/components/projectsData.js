@@ -57,7 +57,7 @@ export const projects = [
     description:
       "A technical demonstration of core physics principles and vector mathematics within Unity made for the 'Maths and Physics for Games' module. This project involved building custom motion engines without the use of built-in physics for specific tasks, followed by a fully realized space themed game leveraging rigidbodies, joints, and collision systems.",
     techStack: ['Unity', 'C#'],
-    coverImage: 'Images/Physics Cover.png',
+    coverImage: 'Images/Physics-Cover.png',
     contributions: [
       "Custom 3D Trajectory Engine (Task 1): Engineered a projectile motion simulation from scratch using only Transform and Vector3 logic—bypassing Unity's Rigidbody system. Implemented a variable coefficient of restitution to realistically simulate kinetic energy loss during surface bounces.",
       'Mathematical Path Following (Task 2): Developed an "Ease-In, Ease-Out" waypoint navigation system using vector mathematics to ensure smooth, continuous motion between dynamic targets. Designed the system to allow real-time waypoint manipulation without breaking path-finding logic.',

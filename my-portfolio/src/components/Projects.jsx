@@ -1,35 +1,68 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { projects } from './projectsData';
 import ProjectDisplay from './ProjectDisplay';
 
 export default function Projects() {
-  const [activeId, setActiveId] = useState(projects[0].id);
-  const activeProject = projects.find((p) => p.id === activeId);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  // --- SCROLL LOCK LOGIC ---
+  useEffect(() => {
+    if (selectedProject) {
+      // Disable scrolling on the main page
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Enable scrolling again
+      document.body.style.overflow = 'unset';
+    }
+
+    // Cleanup function: Ensures scroll is restored if the 
+    // component unmounts while the modal is still open
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedProject]);
 
   return (
-    <section id="games" className="projects-section-container">
-      <h2 className="section-title">Mission Log</h2>
+    <section id="projects" className="projects-section">
+      <h2 className="section-title">Mission Inventory</h2>
 
-      <div className="game-ui-frame">
-        {/* TOP TAB NAVIGATION */}
-        <nav className="project-tab-row">
-          {projects.map((project) => (
-            <button
-              key={project.id}
-              className={`tab-unit ${activeId === project.id ? 'active-tab' : ''}`}
-              onClick={() => setActiveId(project.id)}
-            >
-              <span className="tab-label">{project.title}</span>
-              <div className="tab-indicator"></div>
-            </button>
-          ))}
-        </nav>
-
-        {/* CONTENT AREA */}
-        <div className="project-window-pane">
-          <ProjectDisplay project={activeProject} />
-        </div>
+      <div className="inventory-grid">
+        {projects.map((project) => (
+          <div 
+            key={project.id} 
+            className="game-card"
+            onClick={() => setSelectedProject(project)}
+          >
+            <div className="card-image" style={{ backgroundImage: `url(${project.coverImage})` }}>
+              <div className="card-overlay">
+                <span className="view-text">OPEN DATAPAD</span>
+              </div>
+            </div>
+            <div className="card-footer">
+              <h4 className="card-title">{project.title}</h4>
+              <div className="card-scanner-line"></div>
+            </div>
+          </div>
+        ))}
       </div>
+
+      {/* THE FULL-SCREEN MODAL */}
+      {selectedProject && (
+        <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
+          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="close-modal-btn" 
+              onClick={() => setSelectedProject(null)}
+            >
+              &times; CLOSE_TERMINAL
+            </button>
+
+            <div className="modal-scroll-area">
+              <ProjectDisplay project={selectedProject} />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
