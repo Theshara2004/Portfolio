@@ -11,7 +11,7 @@ export default function Hero() {
           specializing in gameplay programming and 3D environments.
         </p>
         <a href="#games" className="btn primary-btn">
-          View My Games
+          <span style={{fontSize: '1.4em', fontWeight: '900'}}>[ </span>View my projects<span style={{fontSize: '1.4em', fontWeight: '900'}}> ]</span>
         </a>
       </div>
     </header>

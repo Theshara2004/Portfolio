@@ -6,6 +6,7 @@ export const projects = [
       "A tense first-person horror game built for my Game Engine Architecture coursework. The player must navigate a landmark-based forest to find a randomized exit while surviving 'Whispering Angels'—AI enemies that relentlessly pursue the player when out of sight but freeze instantly when looked at.",
     techStack: ['Unreal Engine 5', 'Blueprints'],
     coverImage: 'Images/Whispering-Forest-CoverPhoto.png',
+    contributionTitle: 'What I Built',
     videoEmbed: 'https://www.youtube.com/embed/b-wU6507Tkc?si=HYFpPlBgvjkHQYss',
     contributions: [
       'Procedural Forest Generation: Utilized the UE5 PCG framework to generate a dense, scalable forest environment with optimized foliage placement.',
@@ -58,6 +59,7 @@ export const projects = [
       "A technical demonstration of core physics principles and vector mathematics within Unity made for the 'Maths and Physics for Games' module. This project involved building custom motion engines without the use of built-in physics for specific tasks, followed by a fully realized space themed game leveraging rigidbodies, joints, and collision systems.",
     techStack: ['Unity', 'C#'],
     coverImage: 'Images/Physics-Cover.png',
+    contributionTitle: 'What I Built',
     contributions: [
       "Custom 3D Trajectory Engine (Task 1): Engineered a projectile motion simulation from scratch using only Transform and Vector3 logic—bypassing Unity's Rigidbody system. Implemented a variable coefficient of restitution to realistically simulate kinetic energy loss during surface bounces.",
       'Mathematical Path Following (Task 2): Developed an "Ease-In, Ease-Out" waypoint navigation system using vector mathematics to ensure smooth, continuous motion between dynamic targets. Designed the system to allow real-time waypoint manipulation without breaking path-finding logic.',

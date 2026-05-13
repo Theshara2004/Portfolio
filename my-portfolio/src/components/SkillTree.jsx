@@ -97,6 +97,11 @@ const SkillTree = ({ setSkillObstacles }) => {
         </svg>
 
         <div className="hub-ball main-hub" style={{ left: '500px', top: '300px' }} onMouseEnter={() => setActiveLayer('main-hover')}>
+          <div className="orbital-rings">
+            <div className="ring ring-1"></div>
+            <div className="ring ring-2"></div>
+            <div className="ring ring-3"></div>
+          </div>
           SKILLS
         </div>
 

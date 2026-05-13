@@ -23,8 +23,8 @@ export default function Projects() {
   }, [selectedProject]);
 
   return (
-    <section id="projects" className="projects-section">
-      <h2 className="section-title">Mission Inventory</h2>
+    <section id="games" className="projects-section">
+      <h2 className="section-title">Mission Log</h2>
 
       <div className="inventory-grid">
         {projects.map((project) => (

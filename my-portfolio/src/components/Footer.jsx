@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="socials">
         <a target="_blank" href="https://github.com/Theshara2004">GitHub</a>
         {/* <a href="#">Itch.io</a> */}
-        <a target="_blank" href="https://www.linkedin.com/in/theshara-rajapaksha-b335a1383/">LinkedIn</a>
+        <a target="_blank" href="https://www.linkedin.com/in/theshara-rajapaksha/">LinkedIn</a>
       </div>
       <p className="copyright">© 2026 Theshara Rajapaksha</p>
     </footer>
