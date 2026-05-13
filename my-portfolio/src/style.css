@@ -780,6 +780,16 @@ nav {
   padding: 8px 15px;
   font-size: 0.8rem;
   margin-right: 10px;
+  border: 1px solid var(--primary-color);
+}
+
+.primary-btn.btn-sm:hover {
+  background-color: var(--primary-color);
+  color: #000;
+  box-shadow: 0 0 25px var(--primary-color), inset 0 0 15px var(--primary-color);
+  transform: translateY(-2px);
+  border-color: #00ffff;
+  animation: none;
 }
 /* --- VERTICAL STACK FOR WHISPERING FOREST --- */
 .asset-vertical-stack {
