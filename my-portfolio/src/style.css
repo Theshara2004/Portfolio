@@ -1115,48 +1115,7 @@ footer p {
     margin: 0;
     color: #a0a0a0;
 }
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none; /* In a pure HTML/CSS build, mobile menus are tricky without JS or hacky checkboxes. Keeping it simple by hiding links on very small screens, or you could change flex-direction. */
-    }
-    
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-    
-    .section-title {
-        font-size: 2rem;
-    }
-    .timeline {
-        flex-direction: column;
-        gap: 3rem;
-        padding-left: 1rem;
-    }
-    
-    /* Changes horizontal line to vertical */
-    .timeline::before {
-        top: 0;
-        bottom: 0;
-        left: 20px; 
-        width: 2px;
-        height: 100%;
-        right: auto;
-    }
 
-    .timeline-item {
-        text-align: left;
-        display: flex;
-        align-items: flex-start;
-        gap: 2rem;
-        padding: 0;
-    }
-
-    .timeline-dot {
-        margin: 0;
-        flex-shrink: 0;
-    }
-}
 /* --- Global Custom Scrollbar --- */
 
 /* 1. The width of the scrollbar */
@@ -1190,466 +1149,745 @@ footer p {
     scrollbar-color: #00ffff #050505;
 }
 
+/* ============================================
+   SKILL TREE DESKTOP STYLES (1024px+)
+   ============================================ */
+@media (min-width: 1024px) {
+  .skill-tree-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    margin: 0;
+    padding: 2rem 0;
+    overflow: visible;
+  }
 
-/* This centers the entire component on the webpage */
-.skill-tree-container {
-  width: 100%;
-  height: auto;
-  display: flex;
-  align-items: center;      /* Vertical Center */
-  justify-content: center;   /* Horizontal Center */
-  background: transparent;
-  margin: 0;
-  padding: 2rem 0;
-  overflow: visible;
-}
+  .tree-wrapper {
+    position: relative;
+    width: 1000px;
+    height: 600px;
+  }
 
-/* This is the "bounding box" for your skills */
-.tree-wrapper {
-  position: relative;
-  width: 1000px;  /* Matches your SVG viewBox */
-  height: 600px;
-  /* Ensure no 'left' or 'margin-left' is pushing it away */
-}
+  .tree-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
 
-.tree-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
+  .chem-bond {
+    stroke: #00ffff;
+    stroke-width: 2;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
 
-/* Chemical Bonds (Lines) */
-.chem-bond {
-  stroke: #00ffff;
-  stroke-width: 2;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
+  .line-layer.visible .chem-bond {
+    opacity: 0.5;
+    filter: drop-shadow(0 0 5px #00ffff);
+  }
 
-.line-layer.visible .chem-bond {
-  opacity: 0.5;
-  filter: drop-shadow(0 0 5px #00ffff);
-}
+  .particle-bond { 
+    stroke-width: 1; 
+  }
 
-.particle-bond { stroke-width: 1; }
+  @keyframes float {
+    0% { transform: translate(-50%, -50%) translateY(0px); }
+    50% { transform: translate(-50%, -50%) translateY(-10px); }
+    100% { transform: translate(-50%, -50%) translateY(0px); }
+  }
 
-/* Gentle floating animation */
-@keyframes float {
-  0% { transform: translate(-50%, -50%) translateY(0px); }
-  50% { transform: translate(-50%, -50%) translateY(-10px); }
-  100% { transform: translate(-50%, -50%) translateY(0px); }
-}
+  .hub-ball {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    border: 2px solid #00ffff;
+    background: rgba(0, 20, 20, 0.9);
+    color: #00ffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+    z-index: 10;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: float 4s ease-in-out infinite;
+  }
 
-/* Hub Styling */
-.hub-ball {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  width: 85px;
-  height: 85px;
-  border-radius: 50%;
-  border: 2px solid #00ffff;
-  background: rgba(0, 20, 20, 0.9);
-  color: #00ffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 0.8rem;
-  z-index: 10;
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation: float 4s ease-in-out infinite;
-}
-/* HOVER EFFECTS */
-.hub-ball:hover {
-  scale: 1.1;
-  border-color: #fff;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 
-              inset 0 0 15px rgba(0, 255, 255, 0.5);
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-/* Make particles pulse when they spawn */
-.particle.spawn {
-  animation: particleFloat 3s ease-in-out infinite;
-}
+  .hub-ball:hover {
+    scale: 1.1;
+    border-color: #fff;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 
+                inset 0 0 15px rgba(0, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+  }
 
-@keyframes particleFloat {
-  0%, 100% { margin-top: -22.5px; }
-  50% { margin-top: -27.5px; }
-}
-.line-layer line {
-  transition: stroke-width 0.3s, opacity 0.3s, filter 0.3s;
-}
+  .particle.spawn {
+    animation: particleFloat 3s ease-in-out infinite;
+  }
 
-/* When the parent hub is hovered, brighten the lines */
-.hub-ball:hover ~ .tree-svg .chem-bond {
-  stroke-width: 3;
-  opacity: 1;
-  filter: drop-shadow(0 0 8px #00ffff);
-}
-/* Disable floating when dragging */
-.hub-ball.dragging {
-  animation: none;
-  scale: 1.05;
-  box-shadow: 0 0 40px rgba(0, 255, 255, 1);
-}
-.particle-core {
-  /* ... existing styles ... */
-  transition: transform 0.3s ease;
-}
+  @keyframes particleFloat {
+    0%, 100% { margin-top: -22.5px; }
+    50% { margin-top: -27.5px; }
+  }
 
-.particle:hover .particle-core {
-  transform: rotate(15deg) scale(1.2);
-  border-color: #fff;
-  box-shadow: 0 0 15px #00ffff;
-}
-.main-hub {
-  user-select: none; /* Prevents highlighting text while dragging */
-}
-.main-hub { 
-    cursor: pointer; 
+  .line-layer line {
+    transition: stroke-width 0.3s, opacity 0.3s, filter 0.3s;
+  }
+
+  .hub-ball:hover ~ .tree-svg .chem-bond {
+    stroke-width: 3;
+    opacity: 1;
+    filter: drop-shadow(0 0 8px #00ffff);
+  }
+
+  .hub-ball.dragging {
+    animation: none;
+    scale: 1.05;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 1);
+  }
+
+  .particle-core {
+    transition: transform 0.3s ease;
+  }
+
+  .particle:hover .particle-core {
+    transform: rotate(15deg) scale(1.2);
+    border-color: #fff;
+    box-shadow: 0 0 15px #00ffff;
+  }
+
+  .main-hub {
+    user-select: none;
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-    user-select: none; /* Prevents highlighting text while dragging */
     perspective: 1000px;
-}
-
-/* Orbital Rings Container */
-.orbital-rings {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  border-radius: 50%;
-}
-
-.orbital-rings:hover .ring {
-  animation: none;
-}
-
-/* Individual Rings */
-.ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 255, 255, 0.6);
-  top: 50%;
-  left: 50%;
-  opacity: 0.8;
-  transform-style: preserve-3d;
-}
-
-.ring-1 {
-  width: 200px;
-  height: 200px;
-  margin-top: -100px;
-  margin-left: -100px;
-  animation: orbitX 8s linear infinite;
-}
-
-.ring-2 {
-  width: 240px;
-  height: 240px;
-  margin-top: -120px;
-  margin-left: -120px;
-  animation: orbitY 10s linear infinite;
-}
-
-.ring-3 {
-  width: 280px;
-  height: 280px;
-  margin-top: -140px;
-  margin-left: -140px;
-  animation: orbitZ 12s linear infinite;
-}
-
-@keyframes orbitX {
-  from {
-    transform: rotateX(0deg) rotateZ(45deg);
   }
-  to {
-    transform: rotateX(360deg) rotateZ(45deg);
+
+  .orbital-rings {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
   }
-}
 
-@keyframes orbitY {
-  from {
-    transform: rotateY(0deg) rotateZ(-30deg);
+  .orbital-rings:hover .ring {
+    animation: none;
   }
-  to {
-    transform: rotateY(360deg) rotateZ(-30deg);
+
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 255, 255, 0.6);
+    top: 50%;
+    left: 50%;
+    opacity: 0.8;
+    transform-style: preserve-3d;
   }
-}
 
-@keyframes orbitZ {
-  from {
-    transform: rotateZ(0deg) rotateX(20deg);
+  .ring-1 {
+    width: 200px;
+    height: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
+    animation: orbitX 8s linear infinite;
   }
-  to {
-    transform: rotateZ(360deg) rotateX(20deg);
+
+  .ring-2 {
+    width: 240px;
+    height: 240px;
+    margin-top: -120px;
+    margin-left: -120px;
+    animation: orbitY 10s linear infinite;
   }
-}
 
-/* Sub-cores Initial State (Invisible) */
-.sub-hub {
-  opacity: 0;
-  scale: 0.4;
-  pointer-events: none;
-}
-/* Update your existing particle-label CSS slightly */
-.sub-hub[style*="left: 300px"] .particle-label {
-  left: -10px;
-  transform: translateX(-100%); /* Label to the left of the icon */
-  animation-delay: -1s;
-  animation-duration: 5s;
-}
-
-.sub-hub[style*="left: 700px"] .particle-label {
-  left: 55px;
-  transform: translateX(0); /* Label to the right of the icon */
-}
-
-.sub-hub.visible {
-  opacity: 1;
-  scale: 1;
-  pointer-events: all;
-}
-
-/* Particle Particles */
-.particle {
-  position: absolute;
-  width: 45px;
-  height: 45px;
-  left: 50%;
-  top: 50%;
-  margin-left: -22.5px;
-  margin-top: -22.5px;
-  opacity: 0;
-  scale: 0;
-  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.particle.spawn {
-  opacity: 1;
-  scale: 1;
-}
-
-.particle-core {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 1px solid #00ffff;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.particle-core img { width: 60%; height: 60%; object-fit: contain; }
-
-/* Label Tooltips */
-.particle-label {
-  position: absolute;
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #00ffff;
-  color: #000;
-  padding: 2px 8px;
-  font-size: 0.7rem;
-  font-weight: bold;
-  opacity: 0;
-  transition: 0.2s;
-  pointer-events: none;
-}
-
-.particle:hover .particle-label { opacity: 1; }
-
-/* ORBITAL SYSTEM STYLES */
-@keyframes orbit-primary {
-  from {
-    transform: rotate(0deg) translateX(250px) rotate(0deg);
+  .ring-3 {
+    width: 280px;
+    height: 280px;
+    margin-top: -140px;
+    margin-left: -140px;
+    animation: orbitZ 12s linear infinite;
   }
-  to {
-    transform: rotate(360deg) translateX(250px) rotate(-360deg);
+
+  @keyframes orbitX {
+    from { transform: rotateX(0deg) rotateZ(45deg); }
+    to { transform: rotateX(360deg) rotateZ(45deg); }
+  }
+
+  @keyframes orbitY {
+    from { transform: rotateY(0deg) rotateZ(-30deg); }
+    to { transform: rotateY(360deg) rotateZ(-30deg); }
+  }
+
+  @keyframes orbitZ {
+    from { transform: rotateZ(0deg) rotateX(20deg); }
+    to { transform: rotateZ(360deg) rotateX(20deg); }
+  }
+
+  .sub-hub {
+    opacity: 0;
+    scale: 0.4;
+    pointer-events: none;
+  }
+
+  .sub-hub.visible {
+    opacity: 1;
+    scale: 1;
+    pointer-events: all;
+  }
+
+  .particle {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    left: 50%;
+    top: 50%;
+    margin-left: -22.5px;
+    margin-top: -22.5px;
+    opacity: 0;
+    scale: 0;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .particle.spawn {
+    opacity: 1;
+    scale: 1;
+  }
+
+  .particle-core {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid #00ffff;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .particle-core img { 
+    width: 60%; 
+    height: 60%; 
+    object-fit: contain; 
+  }
+
+  .particle-label {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #00ffff;
+    color: #000;
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    opacity: 0;
+    transition: 0.2s;
+    pointer-events: none;
+  }
+
+  .particle:hover .particle-label { 
+    opacity: 1; 
+  }
+
+  .sub-hub[style*="left: 300px"] .particle-label {
+    left: -10px;
+    transform: translateX(-100%);
+    animation-delay: -1s;
+    animation-duration: 5s;
+  }
+
+  .sub-hub[style*="left: 700px"] .particle-label {
+    left: 55px;
+    transform: translateX(0);
   }
 }
 
-@keyframes orbit-secondary {
-  from {
-    transform: rotate(0deg) translateX(90px) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(90px) rotate(-360deg);
-  }
-}
-
-.orbital-hub {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  background: rgba(0, 20, 20, 0.95);
-  border: 2px solid rgba(0, 255, 255, 0.6);
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-  transform-origin: 500px 300px;
-}
-
-.orbital-hub:hover {
-  border-color: #00ffff;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.7);
-  scale: 1.15;
-}
-
-.orbital-icon {
-  width: 35px;
-  height: 35px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 3px rgba(0, 255, 255, 0.5));
-}
-
-.orbital-label {
-  font-size: 0.65rem;
-  font-weight: bold;
-  color: #00ffff;
-  text-align: center;
-  white-space: nowrap;
-  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-}
-
-.orbital-component {
-  position: absolute;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.5rem;
-  font-weight: bold;
-  color: white;
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
-  opacity: 0.3;
-  transition: opacity 0.3s ease;
-  cursor: pointer;
-  transform-origin: 0 0;
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.orbital-component:hover {
-  scale: 1.2;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
-}
-
-.orbital-component.visible {
-  opacity: 0.8;
-}
-
-.component-bond {
-  stroke: rgba(0, 255, 255, 0.2);
-  stroke-width: 1;
-  opacity: 0.5;
-}
-
-/* --- MOBILE SKILL GRID STYLES --- */
-
-/* By default, hide the mobile grid on desktop */
-.mobile-skill-grid {
-  display: none;
-  width: 100%;
-  max-width: 600px; /* Keeps it readable on tablets */
-  flex-direction: column;
-  gap: 40px;
-  padding: 2rem;
-  color: #00ffff;
-}
-
-.mobile-skill-title {
-  text-align: center;
-  font-family: 'Orbitron', sans-serif;
-  letter-spacing: 2px;
-  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-
-/* THE FLEXBOX MAGIC */
-.mobile-skill-flex {
-  display: flex;
-  flex-wrap: wrap;       /* Lets items jump to the next line if cramped */
-  justify-content: center; /* Centers the whole cluster */
-  gap: 20px;             /* Spacing between the cards */
-}
-
-/* The individual skill cards */
-.mobile-skill-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 90px;
-  height: 100px;
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(0, 255, 255, 0.2);
-  border-radius: 12px;
-  gap: 10px;
-  transition: all 0.2s ease;
-}
-
-.mobile-skill-card img {
-  width: 45px;
-  height: 45px;
-}
-
-.mobile-skill-card span {
-  font-size: 0.75rem;
-  font-weight: bold;
-}
-
-/* Optional tap highlight for touch screens */
-.mobile-skill-card:active {
-  transform: scale(0.95);
-  border-color: #00ffff;
-  background: rgba(0, 255, 255, 0.1);
-}
-
-/* --- THE MEDIA QUERY (The switcheroo) --- */
-@media (max-width: 1024px) {
-  /* 1. Hide the giant interactive tree */
+/* ============================================
+   MOBILE SKILL GRID VIEW (under 1024px)
+   ============================================ */
+@media (max-width: 1023px) {
+  /* Hide desktop orbital system */
   .tree-wrapper {
     display: none !important;
   }
-  
-  /* 2. Show the flexbox grid */
-  .mobile-skill-grid {
-    display: flex;
-  }
-  
-  /* Reset container alignment to let the page scroll naturally */
+
+  /* Mobile grid container */
   .skill-tree-container {
+    width: 100%;
     height: auto;
-    min-height: 100vh;
-    align-items: flex-start;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(0, 20, 40, 0.4) 0%, rgba(0, 10, 20, 0.4) 100%);
+    border-radius: 16px;
+    margin: 40px 0;
+    border: 1px solid rgba(0, 255, 255, 0.1);
+  }
+
+  /* Section headers for each skill category */
+  .sub-hub {
+    position: relative !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    left: auto !important;
+    top: auto !important;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 16px;
+  }
+
+  /* Hide the main hub on mobile */
+  .main-hub {
+    display: none;
+  }
+
+  /* Hide SVG completely */
+  .tree-svg {
+    display: none;
+  }
+
+  /* Section title styling */
+  .sub-hub::before {
+    content: attr(data-title);
+    grid-column: 1 / -1;
+    font-size: 16px;
+    font-weight: 700;
+    color: #00ffff;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--font-heading);
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+  }
+
+  /* Skill cards */
+  .particle {
+    position: relative !important;
+    opacity: 1 !important;
+    transform: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: linear-gradient(135deg, rgba(0, 20, 40, 0.5) 0%, rgba(10, 30, 50, 0.3) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+  }
+
+  .particle:hover {
+    background: linear-gradient(135deg, rgba(0, 100, 150, 0.4) 0%, rgba(0, 50, 100, 0.3) 100%);
+    border-color: rgba(0, 255, 255, 0.5);
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 255, 255, 0.2), inset 0 0 10px rgba(0, 255, 255, 0.1);
+  }
+
+  .particle:active {
+    transform: translateY(-4px) scale(0.98);
+  }
+
+  /* Icon container */
+  .particle-core {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(0, 100, 200, 0.1) 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .particle:hover .particle-core {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2) 0%, rgba(0, 150, 255, 0.15) 100%);
+    border-color: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+  }
+
+  .particle-core img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  }
+
+  /* Skill label */
+  .particle-label {
+    position: static !important;
+    background: none !important;
+    color: #e0e7ff !important;
+    padding: 0 !important;
+    font-size: 12px !important;
+    opacity: 1 !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    text-align: center;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  /* Small screen optimizations */
+  @media (max-width: 640px) {
+    .skill-tree-container {
+      padding: 16px;
+      margin: 24px 0;
+    }
+
+    .sub-hub {
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)) !important;
+      gap: 12px;
+    }
+
+    .particle {
+      padding: 10px;
+      gap: 6px;
+    }
+
+    .particle-core {
+      width: 48px;
+      height: 48px;
+    }
+
+    .particle-core img {
+      width: 36px;
+      height: 36px;
+    }
+
+    .particle-label {
+      font-size: 11px !important;
+    }
+
+    .sub-hub::before {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  }
+
+  /* Tablet optimization (768px - 1023px) */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .sub-hub {
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)) !important;
+      gap: 18px;
+    }
+
+    .particle {
+      padding: 14px;
+      gap: 10px;
+    }
+
+    .particle-core {
+      width: 64px;
+      height: 64px;
+    }
+
+    .particle-core img {
+      width: 44px;
+      height: 44px;
+    }
+
+    .particle-label {
+      font-size: 13px !important;
+    }
   }
 }
 
-/* Targets the text highlight color */
-::selection {
-  background: transparent;
+/* Mobile Responsiveness*/
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    .timeline {
+        flex-direction: column;
+        gap: 3rem;
+        padding-left: 1rem;
+    }
+    
+    .timeline::before {
+        top: 0;
+        bottom: 0;
+        left: 20px; 
+        width: 2px;
+        height: 100%;
+        right: auto;
+    }
+
+    .timeline-item {
+        text-align: left;
+        display: flex;
+        align-items: flex-start;
+        gap: 2rem;
+        padding: 0;
+    }
+
+    .timeline-dot {
+        margin: 0;
+        flex-shrink: 0;
+    }
 }
 
-/* For older Firefox browsers */
-::-moz-selection {
-  background: transparent;
+/*MOBILE SKILL GRID  */
+
+@media (max-width: 1023px) {
+  /* KEEP skill-tree-container visible and styled */
+  .skill-tree-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 40px 20px !important;
+    background: linear-gradient(135deg, rgba(0, 20, 40, 0.8) 0%, rgba(0, 10, 20, 0.8) 100%) !important;
+    border: 1px solid rgba(0, 255, 255, 0.15) !important;
+    margin: 40px auto !important;
+    border-radius: 16px !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+  }
+
+  /* Make tree-wrapper display its children as grid instead of hiding */
+  .tree-wrapper {
+    display: contents !important;
+    visibility: visible !important;
+  }
+
+  /* Hide the SVG */
+  .tree-svg {
+    display: none !important;
+  }
+
+  /* Hide the main hub */
+  .main-hub {
+    display: none !important;
+  }
+
+  /* Make sub-hubs (LANGUAGES and TOOLS sections) into full-width flex sections */
+  .sub-hub {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: 100% !important;
+    gap: 16px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: none !important;
+    border: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    font-size: 0 !important; /* Hide text nodes like "LANGUAGES" and "TOOLS" */
+  }
+
+  .sub-hub:not(:last-of-type) {
+    margin-bottom: 40px !important;
+  }
+
+  /* Restore font size for particle children */
+  .sub-hub .particle {
+    font-size: inherit !important;
+  }
+
+  .sub-hub .particle-label {
+    font-size: 12px !important;
+  }
+
+  /* Add main section title headers */
+  .sub-hub::before {
+    content: 'SECTION';
+    width: 100%;
+    font-size: 18px;
+    font-weight: 700;
+    color: #00ffff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+    text-align: left;
+  }
+
+  .sub-hub:nth-of-type(2)::before {
+    content: 'LANGUAGES';
+  }
+
+  .sub-hub:nth-of-type(3)::before {
+    content: 'TOOLS';
+  }
+
+  /* Individual skill cards */
+  .particle {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 12px !important;
+    background: linear-gradient(135deg, rgba(0, 30, 60, 0.6) 0%, rgba(10, 20, 40, 0.4) 100%) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(0, 255, 255, 0.25) !important;
+    border-radius: 10px !important;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    cursor: pointer !important;
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    margin: 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    scale: 1 !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .particle:hover {
+    background: linear-gradient(135deg, rgba(0, 100, 180, 0.5) 0%, rgba(0, 50, 120, 0.3) 100%) !important;
+    border-color: rgba(0, 255, 255, 0.6) !important;
+    transform: translateY(-8px) !important;
+    box-shadow: 0 8px 24px rgba(0, 255, 255, 0.25) !important;
+  }
+
+  .particle:active {
+    transform: translateY(-4px) scale(0.98) !important;
+  }
+
+  /* Icon/image container */
+  .particle-core {
+    width: 56px !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.12) 0%, rgba(0, 150, 220, 0.08) 100%) !important;
+    border: 1px solid rgba(0, 255, 255, 0.25) !important;
+    border-radius: 10px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .particle:hover .particle-core {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2) 0%, rgba(0, 200, 255, 0.15) 100%) !important;
+    border-color: rgba(0, 255, 255, 0.5) !important;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.2) !important;
+  }
+
+  .particle-core img {
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: contain !important;
+  }
+
+  /* Skill name label */
+  .particle-label {
+    position: static !important;
+    background: none !important;
+    color: #e0e7ff !important;
+    padding: 0 !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    opacity: 1 !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Small phones */
+  @media (max-width: 640px) {
+    .skill-tree-container {
+      padding: 24px 16px !important;
+      margin: 24px 0 !important;
+    }
+
+    .sub-hub {
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)) !important;
+      gap: 12px !important;
+      margin-bottom: 32px !important;
+    }
+
+    .particle {
+      padding: 10px !important;
+      gap: 6px !important;
+    }
+
+    .particle-core {
+      width: 48px !important;
+      height: 48px !important;
+    }
+
+    .particle-core img {
+      width: 36px !important;
+      height: 36px !important;
+    }
+
+    .particle-label {
+      font-size: 11px !important;
+    }
+
+    .sub-hub::before {
+      font-size: 14px !important;
+      margin-bottom: 10px !important;
+    }
+  }
+
+  /* Tablets */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .sub-hub {
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)) !important;
+      gap: 18px !important;
+      margin-bottom: 48px !important;
+    }
+
+    .particle {
+      padding: 14px !important;
+      gap: 10px !important;
+    }
+
+    .particle-core {
+      width: 64px !important;
+      height: 64px !important;
+    }
+
+    .particle-core img {
+      width: 44px !important;
+      height: 44px !important;
+    }
+
+    .particle-label {
+      font-size: 13px !important;
+    }
+
+    .sub-hub::before {
+      font-size: 18px !important;
+      margin-bottom: 16px !important;
+    }
+  }
 }

@@ -7,7 +7,7 @@ export default function Hero() {
         <p><Typewriter text="> LEVEL 1: INITIALIZATION " delay={100} /></p>
         <h1>Theshara Rajapaksha</h1>
         <p className="subtitle">
-          2nd-Year CS Undergraduate and Game Developer based in Sri Lanka,
+          3rd-Year CS Undergraduate and Game Developer based in Sri Lanka,
           specializing in gameplay programming and 3D environments.
         </p>
         <a href="#games" className="btn primary-btn">
